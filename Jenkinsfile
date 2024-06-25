@@ -1,4 +1,4 @@
-def registry = 'https://keerthi01.jfrog.io/'
+def registry = 'https://keerthi01.jfrog.io'
 pipeline {
     agent {
         node {
@@ -10,6 +10,9 @@ environment {
 }
     stages {
         stage("build"){
+            tools {
+                jdk 'java-11' // Use the JDK 11 tool configured in Jenkins
+            }
             steps {
                 sh 'mvn clean deploy'
             }
@@ -24,7 +27,7 @@ environment {
                           "files": [
                             {
                               "pattern": "jarstaging/(*)",
-                              "target": "libs-release-local/{1}",
+                              "target": "mv-libs-release-local/{1}",
                               "flat": "false",
                               "props" : "${properties}",
                               "exclusions": [ "*.sha1", "*.md5"]
@@ -40,5 +43,6 @@ environment {
         }   
     }   
 
-    }
+
+    }   
 }
