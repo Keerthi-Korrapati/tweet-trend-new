@@ -14,16 +14,7 @@ environment {
                 sh 'mvn clean deploy'
             }
         }
-        stage('Sonarqube analysis') {
-            environment {
-             scannerHome = tool 'keerthi-sonar-scanner' // which is defind jenkins tools 
-            }
-            steps{
-            withSonarQubeEnv('keerthi-sonarqube-server') { // which is defined in jenkins system
-                sh "${scannerHome}/bin/sonar-scanner"
-            }
-            }
-        }
+        
         stage("Jar Publish") {
         steps {
             script {
