@@ -1,4 +1,3 @@
-def registry = 'https://keerthi01.jfrog.io/'
 pipeline {
     agent {
         node {
@@ -11,20 +10,8 @@ environment {
     stages {
         stage("build"){
             steps {
-                sh 'mvn clean package'
+                sh 'mvn clean deploy'
             }
-        }
-        stage('Sonarqube analysis') {
-            environment {
-             scannerHome = tool 'keerthi-sonar-scanner' // which is defind jenkins tools 
-            }
-            steps{
-            withSonarQubeEnv('keerthi-sonarqube-server') { // which is defined in jenkins system
-                sh "${scannerHome}/bin/sonar-scanner"
-            }
-            }
-        }   
-       
+        }  
     }   
-
-    }
+}
